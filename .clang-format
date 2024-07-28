@@ -1,0 +1,56 @@
+
+# Use the latest version of the clang-format style options.
+BasedOnStyle: LLVM
+
+# Define the language: C
+Language: Cpp
+
+# Use 4 spaces for indentation.
+IndentWidth: 4
+
+# Use 4 spaces instead of tabs.
+TabWidth: 4
+UseTab: Never
+
+# Break before braces for function definitions and class definitions.
+BreakBeforeBraces: Attach
+
+# Indent case labels in switch statements.
+IndentCaseLabels: true
+
+# Keep the same number of spaces between the '//' and the comment text.
+CommentPragmas: '^ IWYU pragma:'
+
+# Allow short functions to be in a single line.
+AllowShortFunctionsOnASingleLine: All
+
+# Spaces in control statements (if, for, while, etc.)
+SpaceBeforeParens: ControlStatements
+
+# Use space before range-based for loop's colon
+SpaceBeforeRangeBasedForLoopColon: true
+
+# Max number of columns to be used for formatting.
+ColumnLimit: 80
+
+# Align pointer/reference with the variable name.
+PointerAlignment: Right
+
+# Space after if, for, while, switch, catch.
+SpaceAfterCStyleCast: true
+SpaceAfterTemplateKeyword: true
+
+# Space before and after operators.
+SpaceAroundPointerQualifiers: Both
+
+# Sort includes.
+SortIncludes: true
+
+# BinPackParameters: If set to true, "int a, b;" remains one line; if false, "int a, b;" is split into two lines.
+BinPackParameters: false
+
+# Reflow comments.
+ReflowComments: true
+
+# Always break before multiline string literals.
+AlwaysBreakBeforeMultilineStrings: true
