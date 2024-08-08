@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-#define TAB_STOP 4
+#define TAB_STOP 8
 
 
 void detab(void);
