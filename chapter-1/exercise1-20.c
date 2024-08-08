@@ -21,14 +21,17 @@ int main() {
 }
 
 void detab(void) {
-    int c, i;
-
+    int c, i, position, spaces;
+    position = 0;
     while ((c = getchar()) != EOF) {
         if (c == '\t') {
-            for (i = 0; i < TAB_STOP; ++i) {
+            spaces = TAB_STOP - (position % TAB_STOP);
+            for (i = 0; i < spaces; ++i) {
+                ++position;
                 putchar(' ');
             }
         } else {
+            ++position;
             putchar(c);
         }
     }
