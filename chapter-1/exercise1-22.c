@@ -9,30 +9,26 @@
 #include <stdio.h>
 
 #define FOLD_LENGTH 20
-#define MAXLINE 1000
 #define TABSTOP 8
+#define MAXLINE 1000
 
-
-int mygetline(char s[], int lim);
-void detab(char to[], char from[]);
+int mygetline(char s[], int limit);
+void fold(char s[], int len);
 
 int main() {
-    int len;
     char line[MAXLINE];
-    char detabbed[MAXLINE];
+    int len;
 
     while ((len = mygetline(line, MAXLINE)) > 0) {
-        detab(detabbed, line);
-        printf("%s", detabbed);
+        fold(line, len);
     }
-
     return 0;
 }
 
-int mygetline(char s[], int lim) {
+int mygetline(char s[], int limit) {
     int c, i;
 
-    for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i) {
+    for (i = 0; i < limit - 1 && (c = getchar()) != EOF && c != '\n'; ++i) {
         s[i] = c;
     }
 
@@ -46,22 +42,38 @@ int mygetline(char s[], int lim) {
     return i;
 }
 
-void detab(char to[], char from[]) {
-    int i, j, pos, spaces;
+void fold(char s[], int len) {
+    int i, j, column, last_blank;
+    column = 0;
+    last_blank = -1;
 
-    pos = 0;
-    for (i = 0; from[i] != '\0'; ++i) {
-        if (from[i] == '\t') {
-            spaces = TABSTOP - (pos % TABSTOP);
-            for (j = 0; j < spaces; ++j) {
-                to[pos] = ' ';
-                ++pos;
-            }
+    for (i = 0; i < len; ++i) {
+        if (s[i] == '\t') {
+            column = column + (TABSTOP - (column % TABSTOP));
         } else {
-            to[pos] = from[i];
-            ++pos;
+            ++column;
+        }
+
+        if (s[i] == ' ' || s[i] == '\t') {
+            last_blank = i;
+        }
+
+        if (column > FOLD_LENGTH) {
+            if (last_blank > -1) {
+                s[last_blank] = '\n';
+                i = last_blank - 1;
+            } else {
+                putchar('\n');
+                --i;
+            }
+            column = 0;
+            last_blank = -1;
+        } else {
+            putchar(s[i]);
+        } 
+
+        if (s[i] == '\n') {
+            column = 0;
         }
     }
-
-    to[pos] = '\0';
 }
